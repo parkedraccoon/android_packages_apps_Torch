@@ -242,6 +242,9 @@ public class FlashDevice {
                     }
                     mFlashDeviceWriter.write(String.valueOf(value));
                     mFlashDeviceWriter.flush();
+                    if (mode != OFF && !mWakeLock.isHeld()) {
+                        mWakeLock.acquire();
+                    }
                     if (mode == OFF) {
                         mFlashDeviceWriter.close();
                         mFlashDeviceWriter = null;
